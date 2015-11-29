@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="myApp">
+    <head>
+        <meta charset="UTF-8">
+        <title>Personal Project</title>
+
+        <!--STYLES-->
+        <link rel="stylesheet" href="/assets/styles/style.css">
+
+        <!--SCRIPTS-->
+        <script type="text/javascript" src="/vendors/angular.min.js"></script>
+        <script type="text/javascript" src="/vendors/angular-route.min.js"></script>
+        <script type="text/javascript" src="/assets/scripts/app.min.js"></script>
+    </head>
+    <body>
+        <div class="container">
+            <div ng-include="'/assets/views/templates/header.html'"></div>
+
+            <div ng-include="'/assets/views/templates/nav.html'"></div>
+
+            <main ng-view></main>
+
+            <div ng-include="'/assets/views/templates/footer.html'"></div>
+        </div>
+    </body>
+</html>

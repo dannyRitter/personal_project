@@ -1,0 +1,46 @@
+body {
+    margin: 0 auto;
+    text-align: center;
+    font-family: 'Helvetica', 'Arial';
+}
+
+h2 {
+    font-weight: normal;
+    font-size: 18px;
+}
+
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    list-style: none;
+}
+
+button {
+    font-size: 18px;
+    cursor: pointer;
+}
+
+
+.container {
+    width: 480px;
+    margin: 0 auto;
+    text-align: left;
+}
+
+#nav {
+    text-align: center;
+}
+
+#nav ul {
+    list-style: none;
+}
+
+#nav ul li {
+    display: inline;
+}
+
+
+

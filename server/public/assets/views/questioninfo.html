@@ -1,0 +1,20 @@
+<div class="question-container">
+    <p>{{info.name}},  {{info.definition}},  {{info.quote}}</p>
+    <div class="inputForm">
+        <p>Check the box for how interested you are in the activity with 5 being very interested!</p>
+        <form name="questionForm">
+        <input ng-model="q" type="radio" name="{{info._id}}" value="1">1
+        <br>
+        <input ng-model="q" type="radio" name="{{info._id}}" value="2">2
+        <br>
+        <input ng-model="q" type="radio" name="{{info._id}}" value="3">3
+        <br>
+        <input ng-model="q" type="radio" name="{{info._id}}" value="4">4
+        <br>
+        <input ng-model="q" type="radio" name="{{info._id}}" value="5">5
+        <br>
+        <button ng-click="action(q)">Submit Answer</button>
+        </form>
+
+    </div>
+</div>
