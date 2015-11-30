@@ -36,14 +36,14 @@ myApp.controller('questionsController', ['$scope', '$http', function($scope, $ht
             $scope.questionsArray = response.data;
             $scope.currentQuestion = $scope.questionsArray[0];
             $scope.questionIndex = 0;
-            console.log(question);
+            console.log($scope.currentQuestion);
         });
     };
 
     $scope.getQuestions();
 
     $scope.postAnswer = function (kittyFoo) {
-        console.log("given object:", kittyFoo);
+        //console.log("given object:", kittyFoo);
         $http.post('/data', kittyFoo).then(function (response) {
 
 

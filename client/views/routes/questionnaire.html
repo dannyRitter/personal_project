@@ -2,19 +2,19 @@
 
     <div class="container" ng-controller="questionsController">
 
-        <div class="question-container" ng-repeat="info in questionsArray">
+        <div class="question-container" ng-repeat="(key, value) in currentQuestion">
 
-                <p>{{info.name}},  {{info.definition}},  {{info.quote}}</p>
+                <p>{{currentQuestion.name}},  {{currentQuestion.definition}},  {{currentQuestion.quote}}, {{currentQuestion._id}}</p>
                 <div class="inputForm">
                     <p>Check the box for how interested you are in the activity with 5 being very interested!</p>
                     <form name="questionForm">
-                        <input ng-model="answer.response" type="radio" name="{{info._id}}" value="1">1
+                        <input ng-model="answer.response" type="radio" name="{{currentQuestion._id}}" value="1">1
                         <br>
-                        <input ng-model="answer.response" type="radio" name="{{info._id}}" value="2">2
+                        <input ng-model="answer.response" type="radio" name="{{currentQuestion._id}}" value="2">2
                         <br>
-                        <input ng-model="answer.response" type="radio" name="{{info._id}}" value="3">3
+                        <input ng-model="answer.response" type="radio" name="{{currentQuestion._id}}" value="3">3
                         <br>
-                        <input ng-model="answer.response" type="radio" name="{{info._id}}" value="4">4
+                        <input ng-model="answer.response" type="radio" name="{{currentQuestion._id}}" value="4">4
                         <br>
                         <input ng-model="answer.response" type="radio" name="{{info._id}}" value="5">5
                         <br>

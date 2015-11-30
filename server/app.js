@@ -16,7 +16,7 @@ mongoose.model('Question', new Schema({
     "definition": String,
     "quote": String,
     "order": Number,
-    "gender": String
+    "gender": String,
     }, {collection: 'questions'}));
 var Question = mongoose.model('Question');
 
