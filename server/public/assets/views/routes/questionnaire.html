@@ -1,9 +1,12 @@
 <p>QUESTIONNAIRE</p>
 
-
         <div class="question-container" ng-repeat="question in questionsArray">
                 <div ng-show="question.show">
-                <p>{{question.name}},  {{question.definition}},  {{question.quote}}, {{question._id}}</p>
+
+                <h3>{{question.name}}</h3>
+                    <p><b>{{question.definition}}</b></p>
+                    <p><i>{{question.quote}}</i></p>
+
                 <div class="inputForm">
                     <p>Check the box for how interested you are in the activity with 5 being very interested!</p>
                     <form name="questionForm">
@@ -15,7 +18,7 @@
                         <br>
                         <input ng-model="answer.response" type="radio" name="{{question._id}}" value="4">4
                         <br>
-                        <input ng-model="answer.response" type="radio" name="{{info._id}}" value="5">5
+                        <input ng-model="answer.response" type="radio" name="{{question._id}}" value="5">5
                         <br>
                         <button ng-click="postAnswer(answer)">Submit Answer</button>
                     </form>

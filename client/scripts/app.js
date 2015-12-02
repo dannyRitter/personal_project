@@ -1,7 +1,6 @@
 var myApp = angular.module('myApp', ['ngRoute']);
 
 
-
 myApp.config(['$routeProvider', function($routeProvider){
     $routeProvider
         .when('/index', {
@@ -17,20 +16,23 @@ myApp.config(['$routeProvider', function($routeProvider){
             //controller: "questionsController"
         })
         .when('/questionnaire', {
-            templateUrl: "/assets/views/routes/questionnaire.html"
-            //controller: "questionsController"
+            templateUrl: "/assets/views/routes/questionnaire.html",
+            controller: "questionsController"
+        })
+        .when('/results', {
+            templateUrl: "/assets/views/routes/results.html",
+            controller: "questionsController"
         })
         .otherwise('/index');
 }]);
 
 myApp.controller('questionsController', ['$scope', '$http', function($scope, $http){
-    console.log("running questionsController");
     $scope.answer = {};
     $scope.questionIndex = 0;
     $scope.currentQuestion = 0;
     $scope.userResponseObject = {};
-    $scope.userOneAnswers = [];
-    $scope.userTwoAnswers = [];
+    $scope.answersArray = [];
+    $scope.successArray = ["Does this work?", "Maybe?"];
 
 
     $scope.questionsArray = [];
@@ -50,7 +52,7 @@ myApp.controller('questionsController', ['$scope', '$http', function($scope, $ht
                 $scope.questionsArray.push(questionObject);
                 //$scope.currentQuestion = $scope.questionsArray[i];
                 $scope.questionIndex = 0;
-                console.log(questionObject);
+                //console.log(questionObject);
             }
 
             $scope.showCurrent();
@@ -64,37 +66,51 @@ myApp.controller('questionsController', ['$scope', '$http', function($scope, $ht
         var key = "question" + $scope.currentQuestion;
         $scope.userResponseObject[key] = kittyFoo.response;
 
-        //console.log("given object:", kittyFoo);
-        //$http.post('/data', kittyFoo).then(function (response) {
-
-
-            // increment index
-            // store the questionsArray[index] in currentQuestion
-        //});
-
         $scope.currentQuestion++;
 
-        console.log(kittyFoo);
-        //Check to see if the currentQuestion is equal to the data.length (the # of questions)
-        //IF IT IS, then you need to store the responseObject somewhere (array?), then reset it, then do something,
-        //Like set the questions back to 0?
-        //Show something that says 'OK player 2',
-        ///etc.
-
         if($scope.currentQuestion == $scope.questionsArray.length) {
-            $scope.userOneAnswers.push($scope.userResponseObject);
-            $scope.userResponseObject = {};
-            $scope.currentQuestion = 0;
-            alert("Ok player 2!");
+            $scope.answersArray.push($scope.userResponseObject);
+
+            if($scope.answersArray.length == 2){
+                //react to being done
+                console.log("User response objects: ", $scope.answersArray[0], $scope.answersArray[1]);
+                $scope.compareAnswers();
+
+                alert("Time for the results!");
+            } else {
+                $scope.userResponseObject = {};
+                $scope.currentQuestion = 0;
+                alert("Ok player 2!");
+            }
+
         }
+
 
         for(var i=0; i < $scope.questionsArray.length; i++){
             $scope.questionsArray[i].show = false;
         }
 
         $scope.showCurrent();
-        console.log("Here is the response: ", $scope.userResponseObject);
+        //console.log("Here is the response: ", $scope.userResponseObject);
     };
+
+
+    $scope.compareAnswers = function(){
+        //var SA = $scope.successArray;
+        var user1 = $scope.answersArray[0];
+        var user2 = $scope.answersArray[1];
+
+        console.log("HERE: ", user1, user2);
+
+        for(var i=0; i < $scope.questionsArray.length; i++){
+            if(user1["question" + i] >= 3 && user2["question" + i] >= 3){
+                $scope.successArray.push("question" + i);
+            }
+        }
+
+        console.log("Here are the matches!", $scope.successArray);
+    };
+
 
     $scope.showCurrent = function(){
 
@@ -109,4 +125,3 @@ myApp.controller('questionsController', ['$scope', '$http', function($scope, $ht
 
     $scope.getQuestions();
 }]);
-

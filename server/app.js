@@ -10,34 +10,48 @@ var Schema = mongoose.Schema;
 
 mongoose.connect('mongodb://localhost/personal_project_questions');
 
-//Here are my models
+//MODELS
 mongoose.model('Question', new Schema({
     "name": String,
     "definition": String,
     "quote": String,
     "order": Number,
     "gender": String,
+    "success": String
     }, {collection: 'questions'}));
 var Question = mongoose.model('Question');
 
-mongoose.model('Answer', new Schema({
-    "response": Number,
-    "order": Number
-    }, {collection: 'answers'}));
-var Answer = mongoose.model('Answer');
+mongoose.model('Test', new Schema({
+    "name": String,
+    "definition": String,
+    "quote": String,
+    "order": Number,
+    "gender": String,
+    "success": String
+}, {collection: 'tests'}));
+var Test = mongoose.model('Test');
+
+
+//ANSWERS collection probably not necessary anymore...
+
+//mongoose.model('Answer', new Schema({
+//    "response": Number,
+//    "order": Number
+//    }, {collection: 'answers'}));
+//var Answer = mongoose.model('Answer');
 
 
 //Checking to see if I'm connected to the database
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function (callback) {
-    Question.findOne({'name': 'Test2'}, 'name definition quote order', function(err, question) {
+    Question.findOne({'name': 'Using a blindfold'}, 'name definition quote order', function(err, question) {
         if (err) return handleError(err);
         console.log(question.definition);
     })
-    Answer.findOne({'response': 5}, 'response', function(err, question) {
+    Test.findOne({'name': 'Filler Name 1'}, 'name definition quote', function(err, question) {
         if (err) return handleError(err);
-        console.log(question.response);
+        console.log(question.quote);
     })
 });
 
@@ -49,13 +63,11 @@ app.use(bodyParser.urlencoded({expanded: true}));
 
 
 
-
-
 //Grabbing questions from database to be served to the client
 app.get('/data', function(req,res){
-    //return the people from the database, and send it down to the client
+    //return the questions from the database, and send it down to the client
 
-    Question.find({}, function(err, data){
+    Test.find({}, function(err, data){
         if(err) console.log(err);
         res.send(data);
         //console.log(data);
@@ -63,23 +75,22 @@ app.get('/data', function(req,res){
 });
 
 
+//ANSWERS collection probably not necessary anymore...
+
 //Posting user input to Answers collection
-app.post('/data', function(req,res){
-
-    var addedAnswer = new Answer({
-        "response" : req.body.response,
-        "order" : req.body.order
-    });
-
-    addedAnswer.save(function(err, data){
-        if(err) console.log(err);
-        console.log(data);
-        res.send(data);
-    });
-});
-
-
-
+//app.post('/data', function(req,res){
+//
+//    var addedAnswer = new Answer({
+//        "response" : req.body.response,
+//        "order" : req.body.order
+//    });
+//
+//    addedAnswer.save(function(err, data){
+//        if(err) console.log(err);
+//        console.log(data);
+//        res.send(data);
+//    });
+//});
 
 
 app.get("/*", function(req,res){
