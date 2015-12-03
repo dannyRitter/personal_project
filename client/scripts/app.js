@@ -1,6 +1,6 @@
 var myApp = angular.module('myApp', ['ngRoute']);
 
-
+//Routing!
 myApp.config(['$routeProvider', function($routeProvider){
     $routeProvider
         .when('/index', {
@@ -21,22 +21,23 @@ myApp.config(['$routeProvider', function($routeProvider){
         })
         .when('/results', {
             templateUrl: "/assets/views/routes/results.html",
-            controller: "questionsController"
+            controller: "factoryController"
         })
         .otherwise('/index');
 }]);
 
-myApp.controller('questionsController', ['$scope', '$http', function($scope, $http){
+//Main controller for pretty much everything! Should probably extrapolate out...
+myApp.controller('questionsController', ['$scope', '$http', 'resultsFactory', function($scope, $http, resultsFactory){
     $scope.answer = {};
     $scope.questionIndex = 0;
     $scope.currentQuestion = 0;
     $scope.userResponseObject = {};
     $scope.answersArray = [];
-    $scope.successArray = ["Does this work?", "Maybe?"];
-
-
+    $scope.successArray = [];
+    $scope.domArray = [];
     $scope.questionsArray = [];
 
+    //Grab questions from database
     $scope.getQuestions = function(){
         $http.get('/data').then(function(response){
 
@@ -47,21 +48,15 @@ myApp.controller('questionsController', ['$scope', '$http', function($scope, $ht
                 questionObject.index = i;
                 questionObject.show = true;
 
-
-
                 $scope.questionsArray.push(questionObject);
-                //$scope.currentQuestion = $scope.questionsArray[i];
                 $scope.questionIndex = 0;
-                //console.log(questionObject);
             }
-
             $scope.showCurrent();
         });
     };
 
 
-
-    $scope.postAnswer = function (kittyFoo) {
+    $scope.submitAnswer = function (kittyFoo) {
         //capture info onto dynamic key
         var key = "question" + $scope.currentQuestion;
         $scope.userResponseObject[key] = kittyFoo.response;
@@ -75,7 +70,9 @@ myApp.controller('questionsController', ['$scope', '$http', function($scope, $ht
                 //react to being done
                 console.log("User response objects: ", $scope.answersArray[0], $scope.answersArray[1]);
                 $scope.compareAnswers();
-
+                $scope.showSuccesses();
+                //push domArray to resultsFactory as storedResults
+                resultsFactory.setResults($scope.domArray);
                 alert("Time for the results!");
             } else {
                 $scope.userResponseObject = {};
@@ -85,30 +82,35 @@ myApp.controller('questionsController', ['$scope', '$http', function($scope, $ht
 
         }
 
-
         for(var i=0; i < $scope.questionsArray.length; i++){
             $scope.questionsArray[i].show = false;
         }
 
         $scope.showCurrent();
-        //console.log("Here is the response: ", $scope.userResponseObject);
     };
 
 
     $scope.compareAnswers = function(){
-        //var SA = $scope.successArray;
         var user1 = $scope.answersArray[0];
         var user2 = $scope.answersArray[1];
 
-        console.log("HERE: ", user1, user2);
-
         for(var i=0; i < $scope.questionsArray.length; i++){
             if(user1["question" + i] >= 3 && user2["question" + i] >= 3){
-                $scope.successArray.push("question" + i);
+                $scope.successArray.push(i);
             }
         }
-
         console.log("Here are the matches!", $scope.successArray);
+    };
+
+
+    $scope.showSuccesses = function(){
+        var A1 = $scope.successArray;
+        var A2 = $scope.questionsArray;
+
+        //GO THROUGH ALL OF SUCCESS IDs and Grab the info out of the Questions
+        for(var i = 0; i < A1.length; i++){
+            $scope.domArray.push(A2[(A1[i])]);
+        }
     };
 
 
@@ -122,6 +124,29 @@ myApp.controller('questionsController', ['$scope', '$http', function($scope, $ht
             }
         }
     };
-
     $scope.getQuestions();
 }]);
+
+
+myApp.controller('factoryController', ['$scope', '$http', 'resultsFactory', function($scope, $http, resultsFactory){
+
+    $scope.domArray = [];
+    $scope.domArray = resultsFactory.getResults();
+    //console.log($scope.domArray);
+}]);
+
+myApp.factory('resultsFactory', function(){
+
+    var storedResults = [];
+
+    return {
+        getResults: function() {
+            return storedResults;
+            console.log(storedResults);
+        },
+        setResults: function(value) {
+            storedResults = value;
+            return storedResults;
+        },
+    }
+});
