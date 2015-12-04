@@ -19,12 +19,25 @@ module.exports = function(grunt){
             //}
         },
         copy: {
+            bootstrap: {
+                expand: true,
+                cwd: 'node_modules/bootstrap/dist/css/',
+                src: [
+                    "bootstrap.min.css",
+                    "bootstrap.min.css.map"
+                ],
+                "dest": "server/public/vendors/"
+            },
             angular: {
                 expand: true,
-                cwd: 'node_modules/angular',
+                cwd: 'node_modules',
                 src: [
-                    "angular.min.js",
-                    "angular.min.js.map"
+                    "angular/angular.min.js",
+                    "angular-animate/angular-animate.min.js",
+                    "angular-aria/angular-aria.min.js",
+                    "angular-material/angular-material.min.js",
+                    "angular-material/angular-material.min.css",
+                    "angular-messages/angular-messages.min.js"
                 ],
                 "dest": "server/public/vendors/"
             },
@@ -57,6 +70,5 @@ module.exports = function(grunt){
 
     grunt.loadNpmTasks('grunt-contrib-copy');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-
     grunt.registerTask('default', ['copy', 'uglify']);
 };
