@@ -37,6 +37,8 @@ myApp.controller('questionsController', ['$scope', '$http', 'resultsFactory', fu
     $scope.domArray = [];
     $scope.questionsArray = [];
 
+    $scope.showButton;
+
     //Grab questions from database
     $scope.getQuestions = function(){
         $http.get('/data').then(function(response){
@@ -73,6 +75,8 @@ myApp.controller('questionsController', ['$scope', '$http', 'resultsFactory', fu
                 $scope.showSuccesses();
                 //push domArray to resultsFactory as storedResults
                 resultsFactory.setResults($scope.domArray);
+                $scope.showButton = true;
+                $scope.buttonReveal($scope.showButton);
                 alert("Time for the results!");
             } else {
                 $scope.userResponseObject = {};
@@ -87,6 +91,15 @@ myApp.controller('questionsController', ['$scope', '$http', 'resultsFactory', fu
         }
 
         $scope.showCurrent();
+    };
+
+    //Show "See Results!" button function
+    $scope.buttonReveal = function(value){
+        if(value == true) {
+            return true;
+        } else {
+            return false
+        }
     };
 
 

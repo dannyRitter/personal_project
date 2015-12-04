@@ -1,7 +1,7 @@
 <p>QUESTIONNAIRE</p>
 
         <div class="question-container" ng-repeat="question in questionsArray">
-                <div ng-show="question.show">
+            <div ng-show="question.show">
 
                 <h3>{{question.name}}</h3>
                     <p><b>{{question.definition}}</b></p>
@@ -24,6 +24,10 @@
                     </form>
 
                 </div>
-                </div>
+            </div>
         </div>
 
+    <div ng-controller="questionsController">
+        <div class="superEmpty"></div>
+        <a class="btn" ng-href="#/results" ng-show="buttonReveal(showButton)"><button>See Results!</button></a>
+    </div>
