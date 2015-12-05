@@ -33,11 +33,15 @@ module.exports = function(grunt){
                 cwd: 'node_modules',
                 src: [
                     "angular/angular.min.js",
+                    "angular/angular.min.js.map",
                     "angular-animate/angular-animate.min.js",
+                    "angular-animate/angular-animate.min.js.map",
                     "angular-aria/angular-aria.min.js",
+                    "angular-aria/angular-aria.min.js.map",
                     "angular-material/angular-material.min.js",
                     "angular-material/angular-material.min.css",
-                    "angular-messages/angular-messages.min.js"
+                    "angular-messages/angular-messages.min.js",
+                    "angular-messages/angular-messages.min.js.map"
                 ],
                 "dest": "server/public/vendors/"
             },

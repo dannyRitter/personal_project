@@ -10,24 +10,20 @@
                 <div class="inputForm">
                     <p>Check the box for how interested you are in the activity with 5 being very interested!</p>
                     <form name="questionForm">
-                        <input ng-model="answer.response" type="radio" name="{{question._id}}" value="1">1
-                        <br>
-                        <input ng-model="answer.response" type="radio" name="{{question._id}}" value="2">2
-                        <br>
-                        <input ng-model="answer.response" type="radio" name="{{question._id}}" value="3">3
-                        <br>
-                        <input ng-model="answer.response" type="radio" name="{{question._id}}" value="4">4
-                        <br>
-                        <input ng-model="answer.response" type="radio" name="{{question._id}}" value="5">5
-                        <br>
-                        <button ng-click="submitAnswer(answer)">Submit Answer</button>
+                        <md-radio-group ng-model="answer.response">
+                        <md-radio-button name="{{question._id}}" value="1" aria-label="1">1</md-radio-button>
+                        <md-radio-button name="{{question._id}}" value="2" aria-label="2">2</md-radio-button>
+                        <md-radio-button name="{{question._id}}" value="3" aria-label="3">3</md-radio-button>
+                        <md-radio-button name="{{question._id}}" value="4" aria-label="4">4</md-radio-button>
+                        <md-radio-button name="{{question._id}}" value="5" aria-label="5">5</md-radio-button>
+                        </md-radio-group>
+                        <md-button class="md-raised" ng-click="submitAnswer(answer)">Submit Answer</md-button>
                     </form>
-
                 </div>
             </div>
         </div>
 
     <div ng-controller="questionsController">
         <div class="superEmpty"></div>
-        <a class="btn" ng-href="#/results" ng-show="buttonReveal(showButton)"><button>See Results!</button></a>
+        <a class="btn" ng-href="#/results" ng-show="buttonReveal(showButton)"><md-button class="md-raised">See Results!</md-button></a>
     </div>
