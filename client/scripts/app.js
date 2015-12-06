@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['ngRoute', 'ngMaterial', 'ngMessages']);
+var myApp = angular.module('myApp', ['ngRoute','ngAria', 'ngMaterial', 'ngMessages']);
 
 //Routing!
 myApp.config(['$routeProvider', function($routeProvider){
