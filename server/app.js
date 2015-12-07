@@ -67,7 +67,7 @@ app.use(bodyParser.urlencoded({expanded: true}));
 app.get('/data', function(req,res){
     //return the questions from the database, and send it down to the client
 
-    Test.find({}, function(err, data){
+    Question.find({}, function(err, data){
         if(err) console.log(err);
         res.send(data);
         //console.log(data);
