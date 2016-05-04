@@ -8,7 +8,7 @@ var Schema = mongoose.Schema;
 
 
 
-mongoose.connect('mongodb://localhost/personal_project_questions');
+mongoose.connect('mongodb://danny_personal_project:pproject@ds013222.mlab.com:13222/personal_project_questions');
 
 //MODELS
 mongoose.model('Question', new Schema({
@@ -57,7 +57,7 @@ db.once('open', function (callback) {
 
 
 
-app.set("port", process.env.PORT || 5000);
+app.set("port", process.env.PORT || 8000);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({expanded: true}));
 
